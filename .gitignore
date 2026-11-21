@@ -1,0 +1,23 @@
+# 从企业原包恢复到本机的依赖和教学资料
+/指导书/
+/软件demo/实验前/AI_Assistant_Basic_Project_*/Lib/
+/软件demo/实验前/AI_Assistant_Basic_Project_*/STM32Cube_FW_N6/
+/软件demo/实验前/plc/库/
+CODESYSControl.cfgmy
+
+# 工作区、生成文件和设备调试记录
+.metadata/
+.vscode/
+Debug/
+Release/
+build/
+st_ai_output/
+st_ai_ws/
+*.launch
+*.precompilecache
+*.compileinfo
+*.bootinfo
+*.bootinfo_guids
+*.opt
+*_RECOVERED_*.project
+*.rar

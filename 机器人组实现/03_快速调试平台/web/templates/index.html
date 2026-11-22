@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="control-token" content="{{ control_token }}">
+  <title>灵巧手 · 控制台</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='16' width='64' height='64' fill='%2366e0b5'/%3E%3Cpath d='M20 43V25m8 18V16m8 27V12m8 31V20M20 36l-7-7m7 14q12 15 24 0' stroke='%230b111b' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+  <script defer src="/static/app.js?v=20261111-hold"></script>
+</head>
+<body>
+  <a class="skip" href="#joint-controls">跳转到关节控制</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon" aria-hidden="true">✳</span><div><h1>灵巧手<span>控制台</span></h1><p>DEXTEROUS HAND / LOCAL CONTROL</p></div></div>
+    <div class="top-actions"><span id="connection" class="connection"><i aria-hidden="true"></i><span>尚未连接</span></span><button id="connect-btn" class="button secondary">连接开发板</button><button id="stop-btn" class="button danger" disabled>停止并张开</button></div>
+  </header>
+  <main>
+    <div id="simulation-banner" class="simulation" hidden>模拟模式 · 操作不会发送到真实设备</div>
+    <div class="intro"><div><span class="eyebrow">HAND WORKSPACE</span><h2>让每一个动作，精确可控。</h2><p>独立调节关节，组合手势，留下你的动作序列。</p></div><div class="bus-tag"><span>06</span><div>驱动通道<br><small>CAN · 1 Mbps</small></div></div></div>
+    <div class="workspace">
+      <aside class="pose-panel panel" aria-labelledby="pose-title">
+        <div class="panel-heading"><h3 id="pose-title">姿态示意</h3><span class="small-pill">六路驱动</span></div>
+        <div class="hand-view">
+          <svg id="hand-svg" viewBox="0 0 300 330" role="img" aria-labelledby="hand-title hand-description">
+            <title id="hand-title">当前灵巧手姿态示意</title><desc id="hand-description">根据最近确认的位置绘制，示意图不代表真实机械角度。</desc>
+            <defs><pattern id="grid" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="#304151"/></pattern></defs>
+            <rect width="300" height="330" fill="url(#grid)"/>
+            <circle cx="151" cy="171" r="114" class="guide-ring"/>
+            <path d="M95 145 Q147 125 214 146 L215 222 Q200 245 192 263 L113 263 Q99 244 93 224Z" class="palm"/>
+            <path d="M113 263 L113 292 Q153 305 192 292 L192 263" class="wrist"/>
+            <path id="finger-3" class="finger" d="M112 151L110 98L109 53"/>
+            <path id="finger-4" class="finger" d="M143 141L143 81L143 27"/>
+            <path id="finger-5" class="finger" d="M175 144L177 88L179 41"/>
+            <path id="finger-6" class="finger" d="M203 153L209 113L213 80"/>
+            <path id="finger-2" class="finger thumb" d="M97 207L67 171L54 139"/>
+            <circle cx="112" cy="151" r="5" class="joint-dot"/><circle cx="143" cy="141" r="5" class="joint-dot"/><circle cx="175" cy="144" r="5" class="joint-dot"/><circle cx="203" cy="153" r="5" class="joint-dot"/><circle cx="97" cy="207" r="5" class="joint-dot"/>
+            <path d="M116 206L186 206M121 215L181 215" class="palm-line"/>
+            <text x="151" y="237" text-anchor="middle" class="svg-label">DEX / 06</text>
+          </svg>
+        </div>
+        <p class="pose-caption">显示最近一次确认的位置</p>
+        <div class="pose-readout"><span>反馈更新</span><strong id="confirmed-at">—</strong></div>
+        <div class="pose-readout"><span>串口</span><strong id="serial-port">/dev/ttyACM0</strong></div>
+        <div class="calibration-note"><span class="note-icon" aria-hidden="true">↗</span><div><strong id="mapping-label">当前使用参考角度</strong><p>默认将驱动行程线性映射到 0–90°。完成机械测量后，可设置各关节的角度标定。</p><button id="calibration-btn" class="text-button">设置角度映射 <span aria-hidden="true">→</span></button></div></div>
+      </aside>
+      <section id="joint-controls" class="controls" tabindex="-1" aria-labelledby="joint-title">
+        <div class="section-heading"><div><span class="eyebrow">JOINT CONTROL</span><h3 id="joint-title">独立关节控制</h3></div><label class="duration-label" for="duration">到位等待<select id="duration"><option value="800">0.8 秒</option><option value="1600" selected>1.6 秒</option><option value="2400">2.4 秒</option><option value="4000">4 秒</option></select></label></div>
+        <p class="muted">应用后持续保持，直到下次操作或点击张开。</p>
+        <div id="joint-grid" class="joint-grid"></div>
+        <section class="gesture-panel panel" aria-labelledby="gesture-title"><div class="panel-heading"><div><span class="eyebrow">GESTURE LIBRARY</span><h3 id="gesture-title">一键手势</h3></div><button id="cycle-btn" class="button compact secondary" title="抓握后保持 2 秒，再自动张开。" disabled>抓握 → 张开 <span aria-hidden="true">↗</span></button></div><div id="gestures" class="gestures"></div></section>
+      </section>
+    </div>
+    <section class="record-panel panel" aria-labelledby="record-title">
+      <div class="record-heading"><div><span class="eyebrow">MOTION RECORDER</span><h3 id="record-title">把动作，变成可以重放的序列。</h3><p>开始录制后，依次调节关节或执行手势，完成后保存。</p></div><div class="record-actions"><label class="visually-hidden" for="record-name">动作名称</label><input id="record-name" type="text" maxlength="40" value="我的抓握动作" placeholder="给动作起个名字"><button id="record-start" class="button primary" disabled><span class="record-dot" aria-hidden="true"></span>开始录制</button><button id="record-save" class="button primary" hidden>结束并保存</button></div></div>
+      <div id="record-live" class="record-live" hidden><span class="live-dot" aria-hidden="true"></span><strong>录制中</strong><span id="record-timer">00:00</span><span id="record-count">1 个姿态</span><p>只记录完成的动作；等待当前动作结束后保存。</p></div>
+      <div class="saved-heading"><h4>已保存的动作</h4><span id="saved-count">0 个</span></div><div id="recordings" class="recordings"><div class="empty-state">这里将保存你的第一个动作序列。</div></div>
+    </section>
+    <section class="activity" aria-labelledby="activity-title"><div class="section-heading"><h3 id="activity-title">最近动作</h3><span class="muted">位置与反馈保存在本机</span></div><div id="activity-list" class="activity-list"><p class="muted">连接开发板后，即可开始控制。</p></div></section>
+    <div class="status-bar"><span id="status-text" role="status" aria-live="polite">正在读取控制台状态…</span><div id="job-progress" class="progress" role="progressbar" aria-label="当前动作进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden><span></span></div></div>
+    <div id="alert" class="toast" role="alert" hidden></div>
+    <footer><span>本地控制 · 数据保存在当前电脑</span><span>STM32MP257 · SIX MOTOR CHANNELS</span></footer>
+  </main>
+  <dialog id="calibration-dialog" aria-labelledby="calibration-title"><form id="calibration-form"><div class="dialog-heading"><div><span class="eyebrow">ANGLE MAPPING</span><h2 id="calibration-title">关节角度映射</h2></div><button type="button" id="calibration-close" class="icon-button" aria-label="关闭角度映射设置">×</button></div><p>先测量两个位置对应的实际角度，再填写映射。未勾选“已实测”的关节将继续显示为参考角度。修改设置不会驱动电机。</p><div id="calibration-fields"></div><div class="dialog-actions"><button type="button" id="calibration-cancel" class="button secondary">取消</button><button type="submit" class="button primary">保存映射</button></div></form></dialog>
+</body>
+</html>

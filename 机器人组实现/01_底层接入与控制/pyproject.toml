@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "elf-dexhand"
+version = "0.1.0"
+description = "SSH and CAN control for the ELF six-joint dexterous hand"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6.0,<7"]
+
+[project.optional-dependencies]
+vision = [
+    "mediapipe==1.0.1",
+    "paramiko>=3.4,<5",
+]
+
+[project.scripts]
+dexhand = "elf_dexhand.cli:main"
+dexhand-camera = "elf_dexhand.camera_app:main"
+dexhand-calibrate = "elf_dexhand.calibration_app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+elf_dexhand = ["data/*.yaml"]

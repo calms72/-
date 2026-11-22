@@ -1,0 +1,9 @@
+{
+  "schema": "paperbox_grasp_preset_v1",
+  "joint_order": ["拇指侧摆", "拇指弯曲", "食指", "中指", "无名指", "小指"],
+  "GRASP": [2000, 1562, 1710, 1709, 1101, 1008],
+  "READY": [2000, 612, 0, 0, 0, 0],
+  "command_order": [3, 4, 5, 6, 2],
+  "side_axis_note": "第1轴侧摆须已在2000附近；prepare和grasp均不主动发送第1轴AA位置指令。",
+  "validation_status": "用户认可的空手位置预设；尚未完成带盒夹持验证，不能据此保证夹稳或夹持力。"
+}

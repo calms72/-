@@ -1,0 +1,34 @@
+# Generic preview values. The interactive calibrator writes personal endpoints.
+camera_mapping:
+  thumb_spread:
+    metric: tip_index_ratio
+    closed_value: 0.55
+    open_value: 1.55
+    closed_position: 1600
+    open_position: 0
+  thumb_bend:
+    metric: mcp_angle
+    open_angle: 170
+    closed_angle: 90
+    open_position: 0
+    closed_position: 2500
+  index:
+    open_angle: 170
+    closed_angle: 80
+    open_position: 0
+    closed_position: 3200
+  middle:
+    open_angle: 170
+    closed_angle: 80
+    open_position: 0
+    closed_position: 3200
+  ring:
+    open_angle: 170
+    closed_angle: 80
+    open_position: 0
+    closed_position: 3200
+  pinky:
+    open_angle: 170
+    closed_angle: 80
+    open_position: 0
+    closed_position: 3200

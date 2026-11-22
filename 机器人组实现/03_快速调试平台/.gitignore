@@ -1,0 +1,6 @@
+web/data/
+web/data-simulation/
+logs/
+.venv/
+__pycache__/
+.pytest_cache/

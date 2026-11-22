@@ -1,0 +1,35 @@
+# Practice profile derived from camera_mapping_training_2026-09-27.yaml.
+# Keep the thumb at the device's default pose while testing four-finger following.
+camera_mapping:
+  thumb_spread:
+    metric: palm_abduction_angle
+    open_value: 50.1896
+    closed_value: 6.8643
+    open_position: 0
+    closed_position: 0
+  thumb_bend:
+    metric: wrist_tip_angle
+    open_angle: 164.22
+    closed_angle: 123.95
+    open_position: 615
+    closed_position: 615
+  index:
+    open_angle: 162.41
+    closed_angle: 90.1
+    open_position: 0
+    closed_position: 1200
+  middle:
+    open_angle: 145.97
+    closed_angle: 80.77
+    open_position: 0
+    closed_position: 1200
+  ring:
+    open_angle: 153.21
+    closed_angle: 94.33
+    open_position: 0
+    closed_position: 1200
+  pinky:
+    open_angle: 154.12
+    closed_angle: 99.59
+    open_position: 0
+    closed_position: 1200

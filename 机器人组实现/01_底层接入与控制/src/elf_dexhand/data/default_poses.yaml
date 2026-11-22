@@ -1,0 +1,25 @@
+# Positions are raw controller units. The thumb has two independently driven joints.
+# For finger bends, 0 means extended and 4095 means bent.
+# Thumb spread is limited to 0..2000.
+poses:
+  yeah:
+    thumb_spread: 0
+    thumb_bend: 2675
+    index: 0
+    middle: 0
+    ring: 4095
+    pinky: 4095
+  open_hand:
+    thumb_spread: 0
+    thumb_bend: 0
+    index: 0
+    middle: 0
+    ring: 0
+    pinky: 0
+  fist:
+    thumb_spread: 0
+    thumb_bend: 2675
+    index: 4095
+    middle: 4095
+    ring: 4095
+    pinky: 4095
